@@ -25,10 +25,11 @@ export class UserService implements IUserService {
     let repositoryResponse: IUserServiceResponse | null;
 
     repositoryResponse = await this.userRepository.getUserByUsername(username);
-    if (!repositoryResponse) {
-      repositoryResponse = await this.userRepository.createUser(username);
+    if (repositoryResponse) {
+      return null;
     }
 
+    repositoryResponse = await this.userRepository.createUser(username);
     if (!repositoryResponse) {
       return null;
     }
@@ -38,6 +39,10 @@ export class UserService implements IUserService {
 
   public async getUsers(): Promise<IUserServiceResponse[] | null> {
     const repositoryResponse = await this.userRepository.getUsers();
+
+    if (!repositoryResponse) {
+      return [];
+    }
 
     return repositoryResponse;
   }

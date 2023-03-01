@@ -7,7 +7,7 @@ export interface IUserRepositoryResponse {
 
 export interface IUserRepository {
   createUser(username: string): Promise<IUserRepositoryResponse | null>;
-  getUsers(): Promise<IUserRepositoryResponse[]>;
+  getUsers(): Promise<IUserRepositoryResponse[] | null>;
   getUserByUsername(username: string): Promise<IUserRepositoryResponse | null>;
 }
 
@@ -36,7 +36,7 @@ export class UserRepository extends Repository implements IUserRepository {
     }
   }
 
-  public async getUsers(): Promise<IUserRepositoryResponse[]> {
+  public async getUsers(): Promise<IUserRepositoryResponse[] | null> {
     const connection = await this.pool.getConnection();
 
     try {
