@@ -8,6 +8,7 @@ export interface IUserServiceResponse {
 export interface IUserService {
   createUser(username: string): Promise<IUserServiceResponse | null>;
   getUsers(): Promise<IUserServiceResponse[] | null>;
+  getUserById(id: number): Promise<IUserServiceResponse | null>;
 }
 
 export class UserService implements IUserService {
@@ -42,6 +43,16 @@ export class UserService implements IUserService {
 
     if (!repositoryResponse) {
       return [];
+    }
+
+    return repositoryResponse;
+  }
+
+  public async getUserById(id: number): Promise<IUserServiceResponse | null> {
+    const repositoryResponse = await this.userRepository.getUserById(id);
+
+    if (!repositoryResponse) {
+      return null;
     }
 
     return repositoryResponse;

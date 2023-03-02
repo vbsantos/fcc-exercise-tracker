@@ -14,6 +14,7 @@ describe("UserService", () => {
       createUser: jest.fn(),
       getUsers: jest.fn(),
       getUserByUsername: jest.fn(),
+      getUserById: jest.fn(),
     };
 
     userService = new UserService(userRepositoryMock);
@@ -105,6 +106,30 @@ describe("UserService", () => {
 
       expect(userRepositoryMock.getUsers).toHaveBeenCalled();
       expect(result).toEqual([]);
+    });
+  });
+
+  describe("getUserById", () => {
+    it("should return _id and username from the respository", async () => {
+      const user: IUserServiceResponse = {
+        _id: 4,
+        username: "user4",
+      };
+
+      userRepositoryMock.getUserById.mockResolvedValue(user);
+
+      const result = await userService.getUserById(user._id);
+
+      expect(userRepositoryMock.getUserById).toHaveBeenCalledWith(user._id);
+      expect(result).toEqual(user);
+    });
+    it("should return null from the repository if not found", async () => {
+      userRepositoryMock.getUserById.mockResolvedValue(null);
+
+      const result = await userService.getUserById(-1);
+
+      expect(userRepositoryMock.getUserById).toHaveBeenCalledWith(-1);
+      expect(result).toEqual(null);
     });
   });
 });

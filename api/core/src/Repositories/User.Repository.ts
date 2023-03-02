@@ -1,14 +1,15 @@
 import { Repository } from "./Repository";
 
-export interface IUserRepositoryResponse {
+export interface IUser {
   _id: number;
   username: string;
 }
 
 export interface IUserRepository {
-  createUser(username: string): Promise<IUserRepositoryResponse | null>;
-  getUsers(): Promise<IUserRepositoryResponse[] | null>;
-  getUserByUsername(username: string): Promise<IUserRepositoryResponse | null>;
+  getUserById(id: number): Promise<IUser | null>;
+  createUser(username: string): Promise<IUser | null>;
+  getUsers(): Promise<IUser[] | null>;
+  getUserByUsername(username: string): Promise<IUser | null>;
 }
 
 export class UserRepository extends Repository implements IUserRepository {
@@ -18,7 +19,7 @@ export class UserRepository extends Repository implements IUserRepository {
 
   public async createUser(
     username: string
-  ): Promise<IUserRepositoryResponse | null> {
+  ): Promise<IUser | null> {
     const connection = await this.pool.getConnection();
 
     try {
@@ -36,7 +37,7 @@ export class UserRepository extends Repository implements IUserRepository {
     }
   }
 
-  public async getUsers(): Promise<IUserRepositoryResponse[] | null> {
+  public async getUsers(): Promise<IUser[] | null> {
     const connection = await this.pool.getConnection();
 
     try {
@@ -44,7 +45,7 @@ export class UserRepository extends Repository implements IUserRepository {
         "SELECT _id, username FROM exercise_tracker_users"
       );
 
-      const response: IUserRepositoryResponse[] = result;
+      const response: IUser[] = result;
 
       return response;
     } finally {
@@ -54,7 +55,7 @@ export class UserRepository extends Repository implements IUserRepository {
 
   public async getUserByUsername(
     username: string
-  ): Promise<IUserRepositoryResponse | null> {
+  ): Promise<IUser | null> {
     const connection = await this.pool.getConnection();
 
     try {
@@ -67,7 +68,28 @@ export class UserRepository extends Repository implements IUserRepository {
         return null;
       }
 
-      const response: IUserRepositoryResponse = rows[0];
+      const response: IUser = rows[0];
+
+      return response;
+    } finally {
+      connection.release();
+    }
+  }
+
+  async getUserById(id: number): Promise<IUser | null> {
+    const connection = await this.pool.getConnection();
+
+    try {
+      const [rows]: any = await connection.query(
+        "SELECT _id, username FROM exercise_tracker_users WHERE _id = ?",
+        [id]
+      );
+
+      if (rows.length === 0) {
+        return null;
+      }
+
+      const response: IUser = rows[0];
 
       return response;
     } finally {

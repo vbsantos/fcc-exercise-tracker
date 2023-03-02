@@ -1,5 +1,7 @@
 import cors from "cors";
 import express, { Express, NextFunction, Request, Response } from "express";
+const multer  = require('multer')
+const upload = multer()
 
 import {
   IUserRepository,
@@ -21,7 +23,8 @@ const exerciseRepository: IExerciseRepository = new ExerciseRepository();
 
 const userService: IUserService = new UserService(userRepository);
 const exerciseService: IExerciseService = new ExerciseService(
-  exerciseRepository
+  exerciseRepository,
+  userRepository
 );
 
 const appController: IAppController = new AppController(
@@ -35,12 +38,13 @@ const app: Express = express();
 // Middlewares
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(upload.none());
 app.use(cors());
 
 // Routes
 app.get("/users", appController.getUsers);
 app.post("/users", appController.createUser);
-app.post("/users/:_id/exercise", appController.createUserExercise);
+app.post("/users/:_id/exercise", appController.createExercise);
 app.get("/users/:_id/logs", appController.getUserExercises);
 
 // Error Handler Middleware
