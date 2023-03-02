@@ -1,8 +1,7 @@
-import { IUserRepository } from "../Repositories/User.Repository";
+import { IUser, IUserRepository } from "../Repositories/User.Repository";
 import {
   UserService,
   IUserService,
-  IUserServiceResponse,
 } from "./User.Service";
 
 describe("UserService", () => {
@@ -22,7 +21,7 @@ describe("UserService", () => {
 
   describe("createUser", () => {
     it("should return null when user already exists", async () => {
-      const existingUser: IUserServiceResponse = {
+      const existingUser: IUser = {
         _id: 1,
         username: "testUser",
       };
@@ -38,7 +37,7 @@ describe("UserService", () => {
     });
 
     it("should create user and return _id and username", async () => {
-      const newUser: IUserServiceResponse = {
+      const newUser: IUser = {
         _id: 2,
         username: "newUser",
       };
@@ -74,7 +73,7 @@ describe("UserService", () => {
 
   describe("getUsers", () => {
     it("should return users from the repository", async () => {
-      const users: IUserServiceResponse[] = [
+      const users: IUser[] = [
         { _id: 1, username: "user1" },
         { _id: 2, username: "user2" },
         { _id: 3, username: "user3" },
@@ -89,7 +88,7 @@ describe("UserService", () => {
     });
 
     it("should return empty array from the repository if it have no users", async () => {
-      const users: IUserServiceResponse[] = [];
+      const users: IUser[] = [];
 
       userRepositoryMock.getUsers.mockResolvedValue(users);
 
@@ -111,7 +110,7 @@ describe("UserService", () => {
 
   describe("getUserById", () => {
     it("should return _id and username from the respository", async () => {
-      const user: IUserServiceResponse = {
+      const user: IUser = {
         _id: 4,
         username: "user4",
       };
