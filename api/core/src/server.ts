@@ -44,7 +44,7 @@ app.options("*", cors({ origin: false }));
 // Routes
 app.get("/users", appController.getUsers);
 app.post("/users", appController.createUser);
-app.post("/users/:_id/exercise", appController.createExercise);
+app.post("/users/:_id/exercises", appController.createExercise);
 app.get("/users/:_id/logs", appController.getUserExercises);
 
 // Error Handler Middleware
