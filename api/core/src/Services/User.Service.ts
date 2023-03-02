@@ -1,14 +1,9 @@
-import { IUserRepository } from "../Repositories/User.Repository";
-
-export interface IUserServiceResponse {
-  _id: number;
-  username: string;
-}
+import { IUser, IUserRepository } from "../Repositories/User.Repository";
 
 export interface IUserService {
-  createUser(username: string): Promise<IUserServiceResponse | null>;
-  getUsers(): Promise<IUserServiceResponse[] | null>;
-  getUserById(id: number): Promise<IUserServiceResponse | null>;
+  createUser(username: string): Promise<IUser | null>;
+  getUsers(): Promise<IUser[] | null>;
+  getUserById(id: number): Promise<IUser | null>;
 }
 
 export class UserService implements IUserService {
@@ -22,8 +17,8 @@ export class UserService implements IUserService {
 
   public async createUser(
     username: string
-  ): Promise<IUserServiceResponse | null> {
-    let repositoryResponse: IUserServiceResponse | null;
+  ): Promise<IUser | null> {
+    let repositoryResponse: IUser | null;
 
     repositoryResponse = await this.userRepository.getUserByUsername(username);
     if (repositoryResponse) {
@@ -38,7 +33,7 @@ export class UserService implements IUserService {
     return repositoryResponse;
   }
 
-  public async getUsers(): Promise<IUserServiceResponse[] | null> {
+  public async getUsers(): Promise<IUser[] | null> {
     const repositoryResponse = await this.userRepository.getUsers();
 
     if (!repositoryResponse) {
@@ -48,7 +43,7 @@ export class UserService implements IUserService {
     return repositoryResponse;
   }
 
-  public async getUserById(id: number): Promise<IUserServiceResponse | null> {
+  public async getUserById(id: number): Promise<IUser | null> {
     const repositoryResponse = await this.userRepository.getUserById(id);
 
     if (!repositoryResponse) {

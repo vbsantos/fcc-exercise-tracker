@@ -61,7 +61,9 @@ export class AppController implements IAppController {
       return next();
     }
 
-    res.status(HttpStatusCode.Created).json(serviceResponse);
+    res
+      .status(HttpStatusCode.Created)
+      .json({ ...serviceResponse, _id: `${serviceResponse._id}` });
   }
 
   /**
@@ -81,7 +83,9 @@ export class AppController implements IAppController {
       return next();
     }
 
-    res.status(HttpStatusCode.OK).json(serviceResponse);
+    res
+      .status(HttpStatusCode.OK)
+      .json(serviceResponse.map((r) => ({ ...r, _id: `${r._id}` })));
   }
 
   /**
@@ -117,7 +121,9 @@ export class AppController implements IAppController {
       return next();
     }
 
-    res.status(HttpStatusCode.Created).json(serviceResponse);
+    res
+      .status(HttpStatusCode.Created)
+      .json({ ...serviceResponse, _id: `${serviceResponse._id}` });
   }
 
   /**
@@ -179,6 +185,8 @@ export class AppController implements IAppController {
       return next();
     }
 
-    res.status(HttpStatusCode.OK).json(serviceResponse);
+    res
+      .status(HttpStatusCode.OK)
+      .json({ ...serviceResponse, _id: `${serviceResponse._id}` });
   }
 }
