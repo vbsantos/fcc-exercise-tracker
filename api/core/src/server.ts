@@ -39,7 +39,7 @@ const app: Express = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(upload.none());
-app.use(cors({ origin: false }));
+app.options("*", cors({ origin: false }));
 
 // Routes
 app.get("/users", appController.getUsers);
