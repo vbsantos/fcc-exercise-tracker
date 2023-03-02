@@ -7,7 +7,6 @@ import {
   IExerciseServiceResponse,
 } from "../Services/Exercise.Service";
 import { HttpStatusCode } from "./HttpStatusCode.Enum";
-import { isArray } from "util";
 import { ILogFilters } from "../Repositories/Exercise.Repository";
 
 export interface IAppController {
@@ -97,8 +96,6 @@ export class AppController implements IAppController {
     const userId = Number(req.params._id);
     const duration = Number(req.body.duration);
     const { description, date } = req.body;
-  public async createUserExercise(req: Request, res: Response): Promise<void> {
-    const { userId, description, duration, date } = req.body;
 
     if (!userId || !description || !duration || !date) {
       res.status(HttpStatusCode.BadRequest).json({ error: "Invalid Input." });
@@ -138,10 +135,6 @@ export class AppController implements IAppController {
     const _from = req.query.from ? String(req.query.from) : "";
     const _to = req.query.to ? String(req.query.to) : "";
     const _limit = Number(req.query.limit);
-
-  public async getUserExercises(req: Request, res: Response): Promise<void> {
-    const { _id } = req.params;
-    const { from, to, limit } = req.query;
 
     if (!_id || isNaN(_id)) {
       res.status(HttpStatusCode.BadRequest).json({ error: "Invalid Input." });

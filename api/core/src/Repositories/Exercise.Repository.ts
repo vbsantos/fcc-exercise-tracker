@@ -1,7 +1,5 @@
 import { Repository } from "./Repository";
 
-export interface IExercise {
-  id: number;
 export interface IExerciseBase {
   description: string;
   duration: number;
@@ -53,8 +51,6 @@ export class ExerciseRepository
         "INSERT INTO exercise_tracker_exercises (user_id, description, duration, date) VALUES (?, ?, ?, ?)",
         [userId, exerciseDescription, exerciseDuration, exerciseDate]
       );
-    throw new Error("Method not implemented.");
-  }
 
       const repositoryResponse: IExercise = {
         _id: result.insertId,
@@ -63,8 +59,6 @@ export class ExerciseRepository
         duration: exerciseDuration,
         date: exerciseDate,
       };
-  public async getExercisesByUserId(userId: number): Promise<IExercise> {
-    throw new Error("Method not implemented.");
 
       return repositoryResponse;
     } finally {
@@ -98,6 +92,7 @@ export class ExerciseRepository
         query += " LIMIT ?";
         queryParams.push(filters.limit);
       }
+
       const [rows]: any = await connection.query(query, queryParams);
 
       const repositoryResponse: IExerciseBase[] = rows;
