@@ -12,8 +12,8 @@ export interface IExercise extends IExerciseBase {
 }
 
 export interface ILogFilters {
-  from?: string | undefined;
-  to?: string | undefined;
+  from?: Date | undefined;
+  to?: Date | undefined;
   limit?: number | undefined;
 }
 

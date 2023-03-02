@@ -138,28 +138,12 @@ export class AppController implements IAppController {
     next: NextFunction
   ): Promise<void> {
     const _id = Number(req.params._id);
-    const _from = req.query.from ? String(req.query.from) : "";
-    const _to = req.query.to ? String(req.query.to) : "";
+    const _from: Date | undefined = Date.parse(`${req.query.from}`) ? new Date(`${req.query.from}`) : undefined;
+    const _to: Date | undefined = Date.parse(`${req.query.to}`) ? new Date(`${req.query.to}`) : undefined;
     const _limit = Number(req.query.limit);
 
     if (!_id || isNaN(_id)) {
       res.status(HttpStatusCode.BadRequest).json({ error: "Invalid Input." });
-      return next();
-    }
-
-    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-
-    if (_from && !dateRegex.test(_from.toString())) {
-      res
-        .status(HttpStatusCode.BadRequest)
-        .json({ error: "Invalid 'from' date." });
-      return next();
-    }
-
-    if (_to && !dateRegex.test(_to.toString())) {
-      res
-        .status(HttpStatusCode.BadRequest)
-        .json({ error: "Invalid 'to' date." });
       return next();
     }
 
