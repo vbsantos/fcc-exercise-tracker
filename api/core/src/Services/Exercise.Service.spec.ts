@@ -45,12 +45,12 @@ describe("ExerciseService", () => {
         date: "2023-03-02",
       });
       userRepositoryMock.getUserById.mockResolvedValue({
-        _id: 1,
+        _id: 2,
         username: "user",
       });
 
       const expectedResult: IExerciseServiceResponse = {
-        _id: 1,
+        _id: 2,
         username: "user",
         description: "description",
         duration: 10,
@@ -126,7 +126,7 @@ describe("ExerciseService", () => {
         _id: user._id,
         username: user.username,
         count: exercises.length,
-        logs: exercises,
+        log: exercises,
       });
     });
   });

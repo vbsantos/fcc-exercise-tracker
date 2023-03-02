@@ -15,7 +15,7 @@ export interface IExerciseLogServiceResponse {
   _id: number;
   username: string;
   count: number;
-  logs: IExerciseBase[];
+  log: IExerciseBase[];
 }
 
 export interface IExerciseService {
@@ -71,7 +71,7 @@ export class ExerciseService implements IExerciseService {
     }
 
     const response: IExerciseServiceResponse = {
-      _id: exerciseRepositoryResponse._id,
+      _id: userRepositoryResponse._id,
       username: userRepositoryResponse.username,
       description: exerciseRepositoryResponse.description,
       date: exerciseRepositoryResponse.date,
@@ -104,7 +104,7 @@ export class ExerciseService implements IExerciseService {
       _id: userRepositoryResponse._id,
       username: userRepositoryResponse.username,
       count: exerciseRepositoryResponse.length,
-      logs: exerciseRepositoryResponse,
+      log: exerciseRepositoryResponse,
     };
 
     return serviceResponse;
