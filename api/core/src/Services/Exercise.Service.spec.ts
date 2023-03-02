@@ -1,5 +1,13 @@
-import { ExerciseService, IExerciseService, IExerciseServiceResponse } from "../Services/Exercise.Service";
-import { IExerciseBase, IExerciseRepository, ILogFilters } from "../Repositories/Exercise.Repository";
+import {
+  ExerciseService,
+  IExerciseService,
+  IExerciseServiceResponse,
+} from "../Services/Exercise.Service";
+import {
+  IExerciseBase,
+  IExerciseRepository,
+  ILogFilters,
+} from "../Repositories/Exercise.Repository";
 import { IUser, IUserRepository } from "../Repositories/User.Repository";
 import { IUserService, UserService } from "./User.Service";
 
@@ -23,15 +31,22 @@ describe("ExerciseService", () => {
     };
 
     userService = new UserService(userRepositoryMock);
-    exerciseService = new ExerciseService(exerciseRepositoryMock, userRepositoryMock);
+    exerciseService = new ExerciseService(
+      exerciseRepositoryMock,
+      userRepositoryMock
+    );
   });
-
 
   describe("createExercise", () => {
     it("should return null if the userRepository response is null", async () => {
       userRepositoryMock.getUserById.mockResolvedValue(null);
 
-      const result = await exerciseService.createExercise(1, "description", 10, "2023-03-02");
+      const result = await exerciseService.createExercise(
+        1,
+        "description",
+        10,
+        new Date("2023-03-02")
+      );
 
       expect(result).toBeNull();
     });
@@ -42,7 +57,7 @@ describe("ExerciseService", () => {
         user_id: 1,
         description: "description",
         duration: 10,
-        date: "2023-03-02",
+        date: new Date("2023-03-02"),
       });
       userRepositoryMock.getUserById.mockResolvedValue({
         _id: 2,
@@ -54,18 +69,26 @@ describe("ExerciseService", () => {
         username: "user",
         description: "description",
         duration: 10,
-        date: "2023-03-02",
+        date: new Date("2023-03-02"),
       };
 
-      const result = await exerciseService.createExercise(1, "description", 10, "2023-03-02");
+      const result = await exerciseService.createExercise(
+        1,
+        "description",
+        10,
+        new Date("2023-03-02")
+      );
 
       expect(result).toEqual(expectedResult);
     });
   });
 
-  describe('getExercisesByUserId', () => {
+  describe("getExercisesByUserId", () => {
     let exerciseRepositoryMock: {
-      getExercisesByUserId: jest.Mock<Promise<IExerciseBase[] | null>, [number, ILogFilters]>;
+      getExercisesByUserId: jest.Mock<
+        Promise<IExerciseBase[] | null>,
+        [number, ILogFilters]
+      >;
     };
     let userRepositoryMock: {
       getUserById: jest.Mock<Promise<IUser | null>, [number]>;
@@ -79,49 +102,77 @@ describe("ExerciseService", () => {
       userRepositoryMock = {
         getUserById: jest.fn(),
       };
-      exerciseService = new ExerciseService(exerciseRepositoryMock as any, userRepositoryMock as any);
+      exerciseService = new ExerciseService(
+        exerciseRepositoryMock as any,
+        userRepositoryMock as any
+      );
     });
 
-    it('should return null if user does not exist', async () => {
+    it("should return null if user does not exist", async () => {
       const userId = 1234;
       userRepositoryMock.getUserById.mockResolvedValueOnce(null);
 
       const result = await exerciseService.getExercisesByUserId(userId, {});
 
       expect(userRepositoryMock.getUserById).toHaveBeenCalledWith(userId);
-      expect(exerciseRepositoryMock.getExercisesByUserId).toHaveBeenCalledWith(userId, {});
+      expect(exerciseRepositoryMock.getExercisesByUserId).toHaveBeenCalledWith(
+        userId,
+        {}
+      );
       expect(result).toBeNull();
     });
 
-    it('should return null if no exercises are found', async () => {
+    it("should return null if no exercises are found", async () => {
       const userId = 1234;
       const filters = {};
-      const user = { _id: userId, username: 'testUser' };
+      const user = { _id: userId, username: "testUser" };
       userRepositoryMock.getUserById.mockResolvedValueOnce(user);
       exerciseRepositoryMock.getExercisesByUserId.mockResolvedValueOnce(null);
 
-      const result = await exerciseService.getExercisesByUserId(userId, filters);
+      const result = await exerciseService.getExercisesByUserId(
+        userId,
+        filters
+      );
 
       expect(userRepositoryMock.getUserById).toHaveBeenCalledWith(userId);
-      expect(exerciseRepositoryMock.getExercisesByUserId).toHaveBeenCalledWith(userId, filters);
+      expect(exerciseRepositoryMock.getExercisesByUserId).toHaveBeenCalledWith(
+        userId,
+        filters
+      );
       expect(result).toBeNull();
     });
 
-    it('should return the expected result when user and exercises are found', async () => {
+    it("should return the expected result when user and exercises are found", async () => {
       const userId = 1234;
       const filters = {};
-      const user = { _id: userId, username: 'testUser' };
+      const user = { _id: userId, username: "testUser" };
       const exercises = [
-        { description: 'exercise1', duration: 30, date: '2022-03-01' },
-        { description: 'exercise2', duration: 45, date: '2022-03-02' },
+        {
+          description: "exercise1",
+          duration: 30,
+          date: new Date("2022-03-01"),
+        },
+        {
+          description: "exercise2",
+          duration: 45,
+          date: new Date("2022-03-02"),
+        },
       ];
       userRepositoryMock.getUserById.mockResolvedValueOnce(user);
-      exerciseRepositoryMock.getExercisesByUserId.mockResolvedValueOnce(exercises);
+      exerciseRepositoryMock.getExercisesByUserId.mockResolvedValueOnce(
+        exercises
+      );
 
-      const result = await exerciseService.getExercisesByUserId(userId, filters);
+      const result = await exerciseService.getExercisesByUserId(
+        userId,
+        filters
+      );
 
       expect(userRepositoryMock.getUserById).toHaveBeenCalledWith(userId);
-      expect(exerciseRepositoryMock.getExercisesByUserId).toHaveBeenCalledWith(userId, filters);
+      expect(exerciseRepositoryMock.getExercisesByUserId).toHaveBeenCalledWith(
+        userId,
+        filters
+      );
       expect(result).toEqual({
         _id: user._id,
         username: user.username,

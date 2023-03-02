@@ -3,7 +3,7 @@ import { Repository } from "./Repository";
 export interface IExerciseBase {
   description: string;
   duration: number;
-  date: string;
+  date: Date;
 }
 
 export interface IExercise extends IExerciseBase {
@@ -22,7 +22,7 @@ export interface IExerciseRepository {
     userId: number,
     exerciseDescription: string,
     exerciseDuration: number,
-    exerciseDate: string
+    exerciseDate: Date
   ): Promise<IExercise>;
   getExercisesByUserId(
     userId: number,
@@ -42,7 +42,7 @@ export class ExerciseRepository
     userId: number,
     exerciseDescription: string,
     exerciseDuration: number,
-    exerciseDate: string
+    exerciseDate: Date
   ): Promise<IExercise> {
     const connection = await this.pool.getConnection();
 

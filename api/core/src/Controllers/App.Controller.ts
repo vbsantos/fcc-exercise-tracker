@@ -99,7 +99,10 @@ export class AppController implements IAppController {
   ): Promise<void> {
     const userId = Number(req.params._id);
     const duration = Number(req.body.duration);
-    const { description, date } = req.body;
+    const description = req.body.description;
+    const date: Date | undefined = Date.parse(`${req.body.date}`)
+      ? new Date(`${req.body.date}`)
+      : undefined;
 
     if (!userId || !description || !duration || !date) {
       res.status(HttpStatusCode.BadRequest).json({ error: "Invalid Input." });
@@ -138,8 +141,12 @@ export class AppController implements IAppController {
     next: NextFunction
   ): Promise<void> {
     const _id = Number(req.params._id);
-    const _from: Date | undefined = Date.parse(`${req.query.from}`) ? new Date(`${req.query.from}`) : undefined;
-    const _to: Date | undefined = Date.parse(`${req.query.to}`) ? new Date(`${req.query.to}`) : undefined;
+    const _from: Date | undefined = Date.parse(`${req.query.from}`)
+      ? new Date(`${req.query.from}`)
+      : undefined;
+    const _to: Date | undefined = Date.parse(`${req.query.to}`)
+      ? new Date(`${req.query.to}`)
+      : undefined;
     const _limit = Number(req.query.limit);
 
     if (!_id || isNaN(_id)) {
