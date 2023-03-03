@@ -18,10 +18,9 @@ import { UserService, IUserService } from "./Services/User.Service";
 import { ExerciseService, IExerciseService } from "./Services/Exercise.Service";
 import { AppController, IAppController } from "./Controllers/App.Controller";
 
-// Instances
+// DI Bindings
 const container = new Container();
 
-// DI Bindings
 container.bind<IUserRepository>("IUserRepository").to(UserRepository);
 container
   .bind<IExerciseRepository>("IExerciseRepository")
