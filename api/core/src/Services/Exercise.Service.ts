@@ -1,3 +1,4 @@
+import { inject, injectable } from "inversify";
 import {
   IExercise,
   IExerciseBase,
@@ -31,13 +32,14 @@ export interface IExerciseService {
   ): Promise<IExerciseLogServiceResponse | null>;
 }
 
+@injectable()
 export class ExerciseService implements IExerciseService {
   private exerciseRepository: IExerciseRepository;
   private userRepository: IUserRepository;
 
   constructor(
-    exerciseRepository: IExerciseRepository,
-    userRepository: IUserRepository
+    @inject("IExerciseRepository") exerciseRepository: IExerciseRepository,
+    @inject("IUserRepository") userRepository: IUserRepository
   ) {
     this.exerciseRepository = exerciseRepository;
     this.userRepository = userRepository;

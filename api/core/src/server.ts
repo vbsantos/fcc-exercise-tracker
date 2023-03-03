@@ -1,7 +1,10 @@
 import cors from "cors";
 import express, { Express, NextFunction, Request, Response } from "express";
-const multer  = require('multer')
-const upload = multer()
+import multer from "multer";
+const upload = multer();
+
+import { Container } from "inversify";
+import "reflect-metadata";
 
 import {
   IUserRepository,
@@ -11,26 +14,23 @@ import {
   ExerciseRepository,
   IExerciseRepository,
 } from "./Repositories/Exercise.Repository";
-
 import { UserService, IUserService } from "./Services/User.Service";
 import { ExerciseService, IExerciseService } from "./Services/Exercise.Service";
-
 import { AppController, IAppController } from "./Controllers/App.Controller";
 
 // Instances
-const userRepository: IUserRepository = new UserRepository();
-const exerciseRepository: IExerciseRepository = new ExerciseRepository();
+const container = new Container();
 
-const userService: IUserService = new UserService(userRepository);
-const exerciseService: IExerciseService = new ExerciseService(
-  exerciseRepository,
-  userRepository
-);
+// DI Bindings
+container.bind<IUserRepository>("IUserRepository").to(UserRepository);
+container
+  .bind<IExerciseRepository>("IExerciseRepository")
+  .to(ExerciseRepository);
+container.bind<IUserService>("IUserService").to(UserService);
+container.bind<IExerciseService>("IExerciseService").to(ExerciseService);
+container.bind<IAppController>("IAppController").to(AppController);
 
-const appController: IAppController = new AppController(
-  userService,
-  exerciseService
-);
+const appController = container.get<IAppController>("IAppController");
 
 // Express
 const app: Express = express();

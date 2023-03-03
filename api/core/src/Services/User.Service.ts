@@ -1,3 +1,4 @@
+import { inject, injectable } from "inversify";
 import { IUser, IUserRepository } from "../Repositories/User.Repository";
 
 export interface IUserService {
@@ -6,18 +7,17 @@ export interface IUserService {
   getUserById(id: number): Promise<IUser | null>;
 }
 
+@injectable()
 export class UserService implements IUserService {
   private userRepository: IUserRepository;
 
-  constructor(userRepository: IUserRepository) {
+  constructor(@inject("IUserRepository") userRepository: IUserRepository) {
     this.userRepository = userRepository;
     this.createUser = this.createUser.bind(this);
     this.getUsers = this.getUsers.bind(this);
   }
 
-  public async createUser(
-    username: string
-  ): Promise<IUser | null> {
+  public async createUser(username: string): Promise<IUser | null> {
     let repositoryResponse: IUser | null;
 
     repositoryResponse = await this.userRepository.getUserByUsername(username);

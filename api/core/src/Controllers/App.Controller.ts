@@ -8,6 +8,7 @@ import {
 } from "../Services/Exercise.Service";
 import { HttpStatusCode } from "./HttpStatusCode.Enum";
 import { ILogFilters } from "../Repositories/Exercise.Repository";
+import { inject, injectable } from "inversify";
 
 export interface IAppController {
   createUser(req: Request, res: Response, next: NextFunction): Promise<void>;
@@ -24,11 +25,15 @@ export interface IAppController {
   ): Promise<void>;
 }
 
+@injectable()
 export class AppController implements IAppController {
   private userService: IUserService;
   private exerciseService: IExerciseService;
 
-  constructor(userService: IUserService, exerciseService: IExerciseService) {
+  constructor(
+    @inject("IUserService") userService: IUserService,
+    @inject("IExerciseService") exerciseService: IExerciseService
+  ) {
     this.userService = userService;
     this.exerciseService = exerciseService;
     this.createUser = this.createUser.bind(this);
@@ -127,7 +132,7 @@ export class AppController implements IAppController {
     res.status(HttpStatusCode.Created).json({
       ...serviceResponse,
       _id: `${serviceResponse._id}`,
-      date: date.toDateString()
+      date: date.toDateString(),
     });
   }
 
@@ -183,7 +188,7 @@ export class AppController implements IAppController {
       _id: `${serviceResponse._id}`,
       log: serviceResponse.log.map((l) => ({
         ...l,
-        date: l.date.toDateString()
+        date: l.date.toDateString(),
       })),
     });
   }

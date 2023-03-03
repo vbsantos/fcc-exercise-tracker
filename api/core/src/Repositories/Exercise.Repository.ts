@@ -1,3 +1,4 @@
+import { injectable } from "inversify";
 import { Repository } from "./Repository";
 
 export interface IExerciseBase {
@@ -30,6 +31,7 @@ export interface IExerciseRepository {
   ): Promise<IExerciseBase[]>;
 }
 
+@injectable()
 export class ExerciseRepository
   extends Repository
   implements IExerciseRepository

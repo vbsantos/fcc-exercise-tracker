@@ -1,3 +1,4 @@
+import { injectable } from "inversify";
 import { Repository } from "./Repository";
 
 export interface IUser {
@@ -12,6 +13,7 @@ export interface IUserRepository {
   getUserByUsername(username: string): Promise<IUser | null>;
 }
 
+@injectable()
 export class UserRepository extends Repository implements IUserRepository {
   constructor() {
     super();
