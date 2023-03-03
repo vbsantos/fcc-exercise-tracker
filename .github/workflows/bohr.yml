@@ -6,15 +6,22 @@ on:
 permissions: write-all
 jobs:
   test:
-    name: Unit Testing
+    name: Testing
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
-      - run: npm ci
-      - run: npm run test
+          cache: 'yarn'
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Build Project
+        run: yarn build
+      - name: Run Unit Tests
+        run: yarn test
   deploy:
+    needs: [test]
     name: Deploy on bohr.io
     runs-on: ubuntu-latest
     steps:
