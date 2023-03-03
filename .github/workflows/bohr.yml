@@ -14,12 +14,13 @@ jobs:
         with:
           node-version: '16.x'
           cache: 'yarn'
+          cache-dependency-path: api/core/yarn.lock
       - name: Install Dependencies
-        run: cd api/core && yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile
       - name: Build Project
-        run: cd api/core && yarn build
+        run: yarn build
       - name: Run Unit Tests
-        run: cd api/core && yarn test
+        run: yarn test
   deploy:
     needs: [test]
     name: Deploy on bohr.io
