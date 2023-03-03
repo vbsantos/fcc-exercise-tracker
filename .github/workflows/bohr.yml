@@ -16,10 +16,13 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: api/core/yarn.lock
       - name: Install Dependencies
+        working-directory: api/core
         run: yarn install --frozen-lockfile
       - name: Build Project
+        working-directory: api/core
         run: yarn build
       - name: Run Unit Tests
+        working-directory: api/core
         run: yarn test
   deploy:
     needs: [test]
