@@ -124,13 +124,11 @@ export class AppController implements IAppController {
       return next();
     }
 
-    res
-      .status(HttpStatusCode.Created)
-      .json({
-        ...serviceResponse,
-        _id: `${serviceResponse._id}`,
-        date: date ? date.toDateString() : '',
-      });
+    res.status(HttpStatusCode.Created).json({
+      ...serviceResponse,
+      _id: `${serviceResponse._id}`,
+      date: date ? date.toDateString() : new Date().toDateString(),
+    });
   }
 
   /**
@@ -185,7 +183,7 @@ export class AppController implements IAppController {
       _id: `${serviceResponse._id}`,
       log: serviceResponse.log.map((l) => ({
         ...l,
-        date: l.date ? l.date.toDateString() : '',
+        date: l.date ? l.date.toDateString() : new Date().toDateString(),
       })),
     });
   }
