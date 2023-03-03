@@ -102,9 +102,9 @@ export class AppController implements IAppController {
     const description = req.body.description;
     const date: Date | undefined = Date.parse(`${req.body.date}`)
       ? new Date(`${req.body.date}`)
-      : undefined;
+      : new Date();
 
-    if (!userId || !description || !duration) {
+    if (!userId || !description || !duration || !date) {
       res.status(HttpStatusCode.BadRequest).json({ error: "Invalid Input." });
       return next();
     }
@@ -127,7 +127,7 @@ export class AppController implements IAppController {
     res.status(HttpStatusCode.Created).json({
       ...serviceResponse,
       _id: `${serviceResponse._id}`,
-      date: date ? date.toDateString() : new Date().toDateString(),
+      date: date.toDateString()
     });
   }
 
@@ -183,7 +183,7 @@ export class AppController implements IAppController {
       _id: `${serviceResponse._id}`,
       log: serviceResponse.log.map((l) => ({
         ...l,
-        date: l.date ? l.date.toDateString() : new Date().toDateString(),
+        date: l.date.toDateString()
       })),
     });
   }

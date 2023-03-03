@@ -81,34 +81,6 @@ describe("ExerciseService", () => {
 
       expect(result).toEqual(expectedResult);
     });
-
-    it("should create exercise even if date is not informed", async () => {
-      exerciseRepositoryMock.createExercise.mockResolvedValue({
-        _id: 1,
-        user_id: 1,
-        description: "description",
-        duration: 10,
-      });
-      userRepositoryMock.getUserById.mockResolvedValue({
-        _id: 2,
-        username: "user",
-      });
-
-      const expectedResult: IExerciseServiceResponse = {
-        _id: 2,
-        username: "user",
-        description: "description",
-        duration: 10,
-      };
-
-      const result = await exerciseService.createExercise(
-        1,
-        "description",
-        10,
-      );
-
-      expect(result).toEqual(expectedResult);
-    });
   });
 
   describe("getExercisesByUserId", () => {

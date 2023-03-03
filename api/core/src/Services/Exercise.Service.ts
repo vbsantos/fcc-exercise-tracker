@@ -23,7 +23,7 @@ export interface IExerciseService {
     userId: number,
     exerciseDescription: string,
     exerciseDuration: number,
-    exerciseDate?: Date
+    exerciseDate: Date
   ): Promise<IExerciseServiceResponse | null>;
   getExercisesByUserId(
     userId: number,
@@ -49,7 +49,7 @@ export class ExerciseService implements IExerciseService {
     userId: number,
     exerciseDescription: string,
     exerciseDuration: number,
-    exerciseDate?: Date
+    exerciseDate: Date
   ): Promise<IExerciseServiceResponse | null> {
     const exerciseRepositoryResponseAsync: Promise<IExercise> =
       this.exerciseRepository.createExercise(
