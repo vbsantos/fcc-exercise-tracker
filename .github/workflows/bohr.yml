@@ -15,11 +15,11 @@ jobs:
           node-version: '16.x'
           cache: 'yarn'
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: cd api/core && yarn install --frozen-lockfile
       - name: Build Project
-        run: yarn build
+        run: cd api/core && yarn build
       - name: Run Unit Tests
-        run: yarn test
+        run: cd api/core && yarn test
   deploy:
     needs: [test]
     name: Deploy on bohr.io
