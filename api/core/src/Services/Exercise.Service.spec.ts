@@ -51,7 +51,7 @@ describe("ExerciseService", () => {
       expect(result).toBeNull();
     });
 
-    it("should return a service response if both the exerciseRepository response and the userRepository response are not null", async () => {
+    it("should create exercise if both the repositories response are not null", async () => {
       exerciseRepositoryMock.createExercise.mockResolvedValue({
         _id: 1,
         user_id: 1,
@@ -77,6 +77,34 @@ describe("ExerciseService", () => {
         "description",
         10,
         new Date("2023-03-02")
+      );
+
+      expect(result).toEqual(expectedResult);
+    });
+
+    it("should create exercise even if date is not informed", async () => {
+      exerciseRepositoryMock.createExercise.mockResolvedValue({
+        _id: 1,
+        user_id: 1,
+        description: "description",
+        duration: 10,
+      });
+      userRepositoryMock.getUserById.mockResolvedValue({
+        _id: 2,
+        username: "user",
+      });
+
+      const expectedResult: IExerciseServiceResponse = {
+        _id: 2,
+        username: "user",
+        description: "description",
+        duration: 10,
+      };
+
+      const result = await exerciseService.createExercise(
+        1,
+        "description",
+        10,
       );
 
       expect(result).toEqual(expectedResult);
