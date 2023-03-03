@@ -1,3 +1,5 @@
+import "reflect-metadata";
+
 import { IUser, IUserRepository } from "../Repositories/User.Repository";
 import {
   UserService,

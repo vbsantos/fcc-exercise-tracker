@@ -1,3 +1,5 @@
+import "reflect-metadata";
+
 import {
   ExerciseService,
   IExerciseService,

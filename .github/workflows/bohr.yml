@@ -23,7 +23,7 @@ jobs:
         run: yarn build
       - name: Run Unit Tests
         working-directory: api/core
-        run: yarn test
+        run: yarn test --verbose
   deploy:
     needs: [test]
     name: Deploy on bohr.io
