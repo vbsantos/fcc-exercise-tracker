@@ -102,7 +102,7 @@ export class AppController implements IAppController {
     const description = req.body.description;
     const date: Date | undefined = Date.parse(`${req.body.date}`)
       ? new Date(`${req.body.date}`)
-      : new Date();
+      : new Date(Date());
 
     if (!userId || !description || !duration || !date) {
       res.status(HttpStatusCode.BadRequest).json({ error: "Invalid Input." });
