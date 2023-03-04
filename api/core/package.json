@@ -7,8 +7,8 @@
     "build": "npx tsc -p tsconfig.json",
     "start": "npx tsc -p tsconfig.json && node dist/server.js",
     "test:watch": "jest --watch",
-    "test:unit": "jest --verbose --coverage -i tests/unit/*",
-    "test:integration": "jest --verbose --coverage -i tests/integration/*",
+    "test:unit": "jest --verbose --coverage -i __tests__/unit/*",
+    "test:integration": "jest --verbose --coverage -i __tests__/integration/*",
     "dev": "nodemon --watch 'src/' --exec 'ts-node src/server.ts' -e ts"
   },
   "keywords": [],

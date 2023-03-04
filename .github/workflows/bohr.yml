@@ -5,7 +5,27 @@ on:
     types: [bohr-dispatch]
 permissions: write-all
 jobs:
+  test:
+    name: Testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          cache: "yarn"
+          cache-dependency-path: api/core/yarn.lock
+      - name: Install Dependencies
+        working-directory: api/core
+        run: yarn install --frozen-lockfile
+      - name: Build Project
+        working-directory: api/core
+        run: yarn build
+      - name: Run Unit Tests
+        working-directory: api/core
+        run: yarn test:unit
   deploy:
+    needs: [test]
     name: Deploy on bohr.io
     runs-on: ubuntu-latest
     steps:
