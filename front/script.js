@@ -6,15 +6,18 @@ forms.forEach(form => {
     event.preventDefault();
     const formId = form.id;
     const resultContainer = document.querySelector(`#result-${formId}`)
+
     const formData = new FormData(form);
     const userId = formData.get("userId");
+    formData.delete("userId")
+
     const method = form.getAttribute('method').toUpperCase();
     const url = userId ? form.getAttribute('action').replace(":_id", userId) : form.getAttribute('action');
 
     // TODO: remover
     console.log({ method, url, body: Object.fromEntries([...formData]) });
 
-    fetch(url, body === {} ? {
+    fetch(url, [...formData].length === 0 ? {
       method: method
     } : {
       method: method,
