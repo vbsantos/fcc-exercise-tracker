@@ -14,7 +14,9 @@ forms.forEach(form => {
     // TODO: remover
     console.log({ method, url, body: Object.fromEntries([...formData]) });
 
-    fetch(url, {
+    fetch(url, body === {} ? {
+      method: method
+    } : {
       method: method,
       body: formData
     })
