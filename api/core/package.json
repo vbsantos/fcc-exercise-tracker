@@ -7,7 +7,8 @@
     "build": "npx tsc -p tsconfig.json",
     "start": "npx tsc -p tsconfig.json && node dist/server.js",
     "test:watch": "jest --watch",
-    "test": "jest --verbose --forceExit --coverage",
+    "test:unit": "jest --verbose --coverage -i tests/unit/*",
+    "test:integration": "jest --verbose --coverage -i tests/integration/*",
     "dev": "nodemon --watch 'src/' --exec 'ts-node src/server.ts' -e ts"
   },
   "keywords": [],
@@ -21,8 +22,7 @@
     "inversify": "^6.0.1",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.1.2",
-    "reflect-metadata": "^0.1.13",
-    "supertest": "^6.3.3"
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
@@ -35,6 +35,7 @@
     "nodemon": "^2.0.21",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "supertest": "^6.3.3"
   }
 }
