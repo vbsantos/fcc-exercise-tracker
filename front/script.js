@@ -13,27 +13,44 @@ forms.forEach(form => {
     const method = form.getAttribute('method').toUpperCase();
     const url = userId ? form.getAttribute('action').replace(":_id", userId) : form.getAttribute('action');
 
-    fetch(url, method === "GET" ? {
-      method
-    } : {
-      method,
-      body: formData
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response);
-        }
-        return response.json();
+    if (method === "GET") {
+      const urlWithQueries = `${url}?` + new URLSearchParams(Object.fromEntries([...formData]));
+      console.log("🚀 ~ file: script.js:19 ~ form.addEventListener ~ urlWithQueries:", urlWithQueries)
+      fetch(urlWithQueries, { method })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(response.statusText);
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log(data)
+          resultContainer.innerHTML = `<code>${JSON.stringify(data)}</code>`
+        })
+        .catch(error => {
+          console.error(error);
+          resultContainer.innerHTML = `<code>${error}</code>`
+        });
+    } else {
+      fetch(url, {
+        method: method,
+        body: formData
       })
-      .then(data => {
-        console.log(data);
-        resultContainer.innerHTML = `<code>${JSON.stringify(data)}</code>`
-        // Handle success response here
-      })
-      .catch(error => {
-        console.error(error);
-        resultContainer.innerHTML = `<code>${JSON.stringify(error)}</code>`
-        // Handle error response here
-      });
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(response.statusText);
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log(data)
+          resultContainer.innerHTML = `<code>${JSON.stringify(data)}</code>`
+        })
+        .catch(error => {
+          console.error(error);
+          resultContainer.innerHTML = `<code>${error}</code>`
+        });
+    }
+
   });
 });
