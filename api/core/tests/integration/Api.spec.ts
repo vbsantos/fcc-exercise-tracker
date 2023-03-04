@@ -1,3 +1,4 @@
+import "jest";
 import request from "supertest";
 import { HttpStatusCode } from "../../src/Controllers/HttpStatusCode.Enum";
 import app from "../../src/server";
