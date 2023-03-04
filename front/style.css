@@ -37,8 +37,14 @@ h2 {
   margin: 20px;
 }
 
+h3 {
+  font-size: 18px;
+  margin: 20px;
+}
+
 h1,
-h2 {
+h2,
+h3 {
   color: var(--dark-color-1);
 }
 
@@ -60,4 +66,42 @@ code {
   font-family: Consolas, monospace;
   font-size: 16px;
   padding: 2px 4px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+label {
+  margin-top: 10px;
+}
+
+input {
+  padding: 5px;
+  margin-left: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button[type="submit"] {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--dark-color-1);
+  color: var(--accent-color-1);
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--dark-color-2);
+  color: var(--accent-color-2);
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
 }

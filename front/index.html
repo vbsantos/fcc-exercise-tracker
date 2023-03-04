@@ -11,6 +11,95 @@
 <body>
   <div id="main-container">
     <h1>Exercise Tracker</h1>
+    <p>The Exercise Tracker API is a simple API that allows developers to create and track exercises for different
+      users. With this API, you can easily add new users, create new exercises, and view exercise logs for each user.
+    </p>
+
+    <h2>Example Usage</h2>
+
+    <h3>Create User</h3>
+    <p>To create a new user, you can send a POST request to the endpoint bellow with the username in the payload.</p>
+    <p>
+      <code>POST /api/users</code>
+    </p>
+
+    <h3>Get Users</h3>
+    <p>To view all users.</p>
+    <p>
+      <code>GET /api/users</code>
+    </p>
+
+    <h3>Create Exercise</h3>
+    <p>To create a new exercise for a user, you can send a POST request to the endpoint bellow with the user ID,
+      exercise description, duration, and optional date in the payload.</p>
+    <p>
+      <code>POST /api/users/:_id/exercises</code>
+    </p>
+
+    <h3>Get User's Exercise Logs</h3>
+    <p>To view a user's exercise log, you can send a GET request to the endpoint bellow with the user ID and optional
+      date range (from, to) and limit in the query parameters.</p>
+    <p>
+      <code>GET /api/users/:_id/logs</code>
+    </p>
+
+    <h2>Try yourself</h2>
+
+    <h3>Create User</h3>
+    <!-- FIXME: nem precisa esse action/method -->
+    <form id="0" action="/api/users" method="post">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username">
+      <button type="submit">Create User</button>
+    </form>
+    <p id="result-0">
+      <!-- Results will be displayed here -->
+    </p>
+
+    <h3>Get Users</h3>
+    <!-- FIXME: nem precisa esse action/method -->
+    <form id="1" action="/api/users" method="get">
+      <button type="submit">Get Users</button>
+    </form>
+    <p id="result-1">
+      <!-- Results will be displayed here -->
+    </p>
+
+    <h3>Create Exercise</h3>
+    <!-- FIXME: nem precisa esse action/method -->
+    <form id="2" action="/api/users/:_id/exercises" method="post">
+      <label for="userId">User ID:</label>
+      <input type="text" id="userId" name="userId">
+      <label for="description">Exercise Description:</label>
+      <input type="text" id="description" name="description">
+      <label for="duration">Duration (in minutes):</label>
+      <input type="number" id="duration" name="duration">
+      <label for="date">Date (optional):</label>
+      <input type="date" id="date" name="date">
+      <button type="submit">Create Exercise</button>
+    </form>
+    <p id="result-2">
+      <!-- Results will be displayed here -->
+    </p>
+
+    <h3>Get Exercise Logs</h3>
+    <form id="3" action="/api/users/:_id/logs" method="get">
+      <label for="userId">User ID:</label>
+      <input type="text" id="userId" name="userId">
+      <label for="from">From (optional):</label>
+      <input type="date" id="from" name="from">
+      <label for="to">To (optional):</label>
+      <input type="date" id="to" name="to">
+      <label for="limit">Limit (optional):</label>
+      <input type="number" id="limit" name="limit">
+      <button type="submit">Get Exercise Logs</button>
+    </form>
+    <p id="result-3">
+      <!-- Results will be displayed here -->
+    </p>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 
 </html>
