@@ -1,10 +1,10 @@
 import "reflect-metadata";
 
-import { IUser, IUserRepository } from "../Repositories/User.Repository";
+import { IUser, IUserRepository } from "../../src/Repositories/User.Repository";
 import {
   UserService,
   IUserService,
-} from "./User.Service";
+} from "../../src/Services/User.Service";
 
 describe("UserService", () => {
   let userService: IUserService;

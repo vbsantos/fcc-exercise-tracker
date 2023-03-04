@@ -4,14 +4,14 @@ import {
   ExerciseService,
   IExerciseService,
   IExerciseServiceResponse,
-} from "../Services/Exercise.Service";
+} from "../../src/Services/Exercise.Service";
 import {
   IExerciseBase,
   IExerciseRepository,
   ILogFilters,
-} from "../Repositories/Exercise.Repository";
-import { IUser, IUserRepository } from "../Repositories/User.Repository";
-import { IUserService, UserService } from "./User.Service";
+} from "../../src/Repositories/Exercise.Repository";
+import { IUser, IUserRepository } from "../../src/Repositories/User.Repository";
+import { IUserService, UserService } from "../../src/Services/User.Service";
 
 describe("ExerciseService", () => {
   let userService: IUserService;

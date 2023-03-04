@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx tsc -p tsconfig.json",
     "start": "npx tsc -p tsconfig.json && node dist/server.js",
-    "watch": "jest --watch",
+    "test:watch": "jest --watch",
     "test": "jest",
     "dev": "nodemon --watch 'src/' --exec 'ts-node src/server.ts' -e ts"
   },
@@ -21,7 +21,8 @@
     "inversify": "^6.0.1",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.1.2",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "supertest": "^6.3.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
@@ -29,6 +30,7 @@
     "@types/jest": "^29.4.0",
     "@types/multer": "^1.4.7",
     "@types/node": "^18.13.0",
+    "@types/supertest": "^2.0.12",
     "jest": "^29.4.3",
     "nodemon": "^2.0.21",
     "ts-jest": "^29.0.5",
