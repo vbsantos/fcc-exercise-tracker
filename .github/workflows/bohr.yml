@@ -6,7 +6,6 @@ on:
 permissions: write-all
 jobs:
   deploy:
-    needs: [test]
     name: Deploy on bohr.io
     runs-on: ubuntu-latest
     steps:
