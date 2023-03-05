@@ -15,7 +15,6 @@ forms.forEach(form => {
 
     if (method === "GET") {
       const urlWithQueries = `${url}?` + new URLSearchParams(Object.fromEntries([...formData]));
-      console.log("🚀 ~ file: script.js:19 ~ form.addEventListener ~ urlWithQueries:", urlWithQueries)
       fetch(urlWithQueries, { method })
         .then(response => {
           if (!response.ok) {
@@ -51,6 +50,5 @@ forms.forEach(form => {
           resultContainer.innerHTML = `<code>${error}</code>`
         });
     }
-
   });
 });

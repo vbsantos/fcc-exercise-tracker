@@ -80,27 +80,76 @@ Log:
 ## Unit Tests
 
 ```text
-PASS  src/Services/User.Service.spec.ts
+PASS  __tests__/unit/Exercise.Service.spec.ts
+  ExerciseService
+    createExercise
+      ✓ should return null if the userRepository response is null (3 ms)
+      ✓ should create exercise if both the repositories response are not null (1 ms)
+    getExercisesByUserId
+      ✓ should return null if user does not exist (1 ms)
+      ✓ should return null if no exercises are found (1 ms)
+      ✓ should return the expected result when user and exercises are found (1 ms)
+
+ PASS  __tests__/unit/User.Service.spec.ts
   UserService
     createUser
-      ✓ should return null when user already exists (5 ms)
+      ✓ should return null when user already exists (3 ms)
       ✓ should create user and return _id and username (1 ms)
       ✓ should return null when user creation fails (1 ms)
     getUsers
       ✓ should return users from the repository (1 ms)
       ✓ should return empty array from the repository if it have no users
-      ✓ should return empty array if user index fails (1 ms)
+      ✓ should return empty array if user index fails
     getUserById
       ✓ should return _id and username from the respository (1 ms)
       ✓ should return null from the repository if not found (1 ms)
 
-PASS  src/Services/Exercise.Service.spec.ts
-  ExerciseService
-    createExercise
-      ✓ should return null if the userRepository response is null (4 ms)
-      ✓ should create exercise if both the repositories response are not null (2 ms)
-    getExercisesByUserId
-      ✓ should return null if user does not exist (2 ms)
-      ✓ should return null if no exercises are found (1 ms)
-      ✓ should return the expected result when user and exercises are found (1 ms)
+---------------------|---------|----------|---------|---------|-------------------
+File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+---------------------|---------|----------|---------|---------|-------------------
+All files            |     100 |      100 |     100 |     100 |
+ Exercise.Service.ts |     100 |      100 |     100 |     100 |
+ User.Service.ts     |     100 |      100 |     100 |     100 |
+---------------------|---------|----------|---------|---------|-------------------
+Test Suites: 2 passed, 2 total
+Tests:       13 passed, 13 total
+Snapshots:   0 total
+Time:        1.742 s, estimated 3 s
+```
+
+## Integration Tests
+
+```text
+ PASS  __tests__/integration/Api.spec.ts
+  API Integrations tests
+    POST /users
+      ✓ Deve criar um usuário e retornar seus dados (344 ms)
+    POST /users/:_id/exercises
+      ✓ Deve criar um exercício para um usuário e retornar seus dados (203 ms)
+    GET /users
+      ✓ Deve retornar uma lista de usuários (48 ms)
+    GET /users/:_id/logs
+      ✓ Deve retornar o registro de exercícios de um usuário (42 ms)
+
+-------------------------|---------|----------|---------|---------|-----------------------------------------------------------
+File                     | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-------------------------|---------|----------|---------|---------|-----------------------------------------------------------
+All files                |   80.75 |    45.28 |   85.18 |      80 |
+ src                     |   81.57 |        0 |       0 |   83.78 |
+  server.ts              |   81.57 |        0 |       0 |   83.78 | 51-52,57-58,63-64
+ src/Controllers         |   73.77 |       48 |     100 |   72.88 |
+  App.Controller.ts      |    70.9 |    43.47 |     100 |   69.81 | 56-57,63-66,85-88,112-113,125-128,158-159,163-166,178-181
+  HttpStatusCode.Enum.ts |     100 |      100 |     100 |     100 |
+ src/Repositories        |   87.14 |    58.82 |     100 |   85.93 |
+  Exercise.Repository.ts |   79.31 |       60 |     100 |   77.77 | 84-85,89-90,94-95
+  Repository.ts          |     100 |      100 |     100 |     100 |
+  User.Repository.ts     |    90.9 |       50 |     100 |   90.32 | 73-75,91
+ src/Services            |   79.54 |       25 |   85.71 |    77.5 |
+  Exercise.Service.ts    |    90.9 |       50 |     100 |      90 | 72,102
+  User.Service.ts        |   68.18 |        0 |      75 |      65 | 25,30,40,47-53
+-------------------------|---------|----------|---------|---------|-----------------------------------------------------------
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+Snapshots:   0 total
+Time:        2.812 s, estimated 4 s
 ```
