@@ -90,7 +90,7 @@ PASS  __tests__/unit/Exercise.Service.spec.ts
       ✓ should return null if no exercises are found (1 ms)
       ✓ should return the expected result when user and exercises are found (1 ms)
 
- PASS  __tests__/unit/User.Service.spec.ts
+PASS  __tests__/unit/User.Service.spec.ts
   UserService
     createUser
       ✓ should return null when user already exists (3 ms)
@@ -120,7 +120,7 @@ Time:        1.742 s, estimated 3 s
 ## Integration Tests
 
 ```text
- PASS  __tests__/integration/Api.spec.ts
+PASS  __tests__/integration/Api.spec.ts
   API Integrations tests
     POST /users
       ✓ Deve criar um usuário e retornar seus dados (344 ms)
